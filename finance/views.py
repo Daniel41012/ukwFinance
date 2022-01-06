@@ -20,6 +20,6 @@ class userAccountListView(generics.ListCreateAPIView):
     serializer_class = userAccountSerializer
 
 
-class userAccountDetailView (generics.RetrieveUpdateDestroyAPIView):
+class userAccountDetailView (generics.RetrieveUpdateAPIView):
     queryset = userAccount.objects.all()
     serializer_class = userAccountSerializer
