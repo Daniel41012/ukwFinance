@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import transaction, userAccount
+from .models import transaction, userAccount, portfolio
 # Register your models here.
 
 
@@ -16,4 +16,8 @@ class transactionAdmin(admin.ModelAdmin):
 @admin.register(userAccount)
 class userAccountAdmin(admin.ModelAdmin):
     list_display = ['id', 'user']
+    
+@admin.register(portfolio)
+class portfolioAdmin(admin.ModelAdmin):
+    list_display = ['id', 'buyer', 'symbol']    
 

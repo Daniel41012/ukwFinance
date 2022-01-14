@@ -1,0 +1,22 @@
+{% extends "finance/base.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <form action="/api/quote/" method="post">
+        <div class="form-group">
+            <input autofocus class="form-control" name="symbol" placeholder="Search" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    {% if data %}
+    <hr>
+    <div class = "alert" role = "alert">
+        <p>Company name: {{data.name}}</p>
+        <p>Latest value: {{data.price}}$</p>
+        <p>Symbol: {{ data.symbol }}</p>
+    </div>
+    {% endif %}    
+{% endblock %}

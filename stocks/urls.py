@@ -15,10 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from register import views as reg
+from finance import views as id
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('transactions/', include('finance.urls'))
     path('api/',include('finance.urls')),
-    path("/",include('finance.urls'))
+    path('register/',reg.register, name="register"),
+    path('quote/', id.quote, name="quote"),
+    path('buy/', id.buy, name="buy"),
+    path('history/', id.index, name="index"),
+    path('sell/', id.sell, name="sell"),
+    path('', id.index, name="index"),
+    path('',include("django.contrib.auth.urls"))    
     ]

@@ -10,7 +10,8 @@ from django.contrib.auth.models import User
 class userAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique = True, related_name = "owner")
     money = models.FloatField(default = 0.0)
-# pk_522e0372c5f1413c9a271914bddc91ae 
+# pk_522e0372c5f1413c9a271914bddc91ae
+#https://cloud.iexapis.com/stable/stock/nflx/quote?token=pk_522e0372c5f1413c9a271914bddc91ae 
 
 
 class transaction(models.Model):
@@ -24,4 +25,8 @@ class transaction(models.Model):
     transaction_type = models.CharField(max_length=40, choices=transaction_choice)
     user_account = models.ForeignKey(userAccount,on_delete=models.CASCADE,related_name = "account")
     
+class portfolio(models.Model):    
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE)
+    symbol = models.CharField(max_length=40)
+    quantity = models.IntegerField()
 

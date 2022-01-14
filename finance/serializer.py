@@ -20,6 +20,9 @@ class userAccountSerializer(serializers.ModelSerializer):
        
 class transactionSerializer(serializers.ModelSerializer):
     buyers = UserSerializer(many=False,read_only=True)
+    user_accounts = userAccountSerializer(many=False,read_only=True)
+    
+
     class Meta: 
         model = transaction
-        fields = ['buyer', 'price', 'quantity', 'symbol', 'company_name', 'needed_money', 'buyers']        
+        fields = ['buyer', 'price', 'quantity', 'symbol', 'company_name', 'needed_money', 'buyers', "transaction_type", "user_accounts", 'user_account']        
