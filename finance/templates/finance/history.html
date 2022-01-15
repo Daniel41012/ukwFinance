@@ -1,0 +1,34 @@
+{% extends "finance/base.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<div class="table-responsive">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Symbol</th>
+      <th scope="col">Name</th>
+      <th scope="col">Operation</th>
+      <th scope="col">Shares</th>
+      <th scope="col">Price</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for stock in stocks %}
+    <tr>
+      <th scope="row">{{ stock.symbol }}</th>
+      <td>{{ stock.company_name }}</td>
+      <td>{{ stock.get_transaction_type_display }}</td>
+      <td>{{ stock.quantity }}</td>
+      <td>{{ stock.price }}$</td>
+      <td>{{ stock.created_at }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

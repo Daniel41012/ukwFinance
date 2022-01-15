@@ -24,6 +24,7 @@ class transaction(models.Model):
     needed_money = models.FloatField()
     transaction_type = models.CharField(max_length=40, choices=transaction_choice)
     user_account = models.ForeignKey(userAccount,on_delete=models.CASCADE,related_name = "account")
+    created_at = models.DateTimeField(auto_now_add=True)
     
 class portfolio(models.Model):    
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)

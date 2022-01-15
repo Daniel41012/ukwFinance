@@ -1,10 +1,8 @@
-
+from multiprocessing import context
 from django.shortcuts import render
-
-from django.contrib import messages
 from .models import transaction, userAccount, portfolio
-from rest_framework import generics, status
-from .serializer import transactionSerializer, userAccountSerializer, UserSerializer
+from rest_framework import generics
+from .serializer import transactionSerializer, userAccountSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .helpers import lookup, updateBuyPaylod, multiply, get_user_account, have_money, add_message, get_user_portfolio
@@ -20,8 +18,7 @@ def buy(request):
     return render(request, "finance/buy.html", {})
 
 
-def history(request):
-    return render(request, "finance/base.html", {})
+
 
 
 @api_view(['GET', 'POST'])
@@ -43,6 +40,7 @@ def transactionListView(request):
         symbol = symbol.upper()
         values = lookup(symbol)
         quantity = request.POST.get("quantity")
+        
         if not quantity:
             add_message(request, "Shares can't be 0")
             return render(request, "finance/base.html", {})
@@ -63,9 +61,10 @@ def transactionListView(request):
         obj = {'company_name': values.get('name'),
                'buyer': request.user.id,
                'transaction_type': 1,
-               'needed_money': final_amount,
+               'needed_money': round(final_amount,2),
                'price': values.get('price'),
-               'user_account': user_account.id
+               'user_account': user_account.id,
+               'symbol': symbol
                }
 
         updateBuyPaylod(request.POST, request, obj)
@@ -121,31 +120,46 @@ def sell(request):
         
         for s in symbols:
             if s.quantity < int(shares):
+                
                 add_message(request, "Not enough shares ")
+                symbols = portfolio.objects.filter(buyer=request.user.id)
                 return render(request, "finance/sell.html", {"symbols": symbols})
             
             elif s.quantity > int(shares):
+                
                 s.quantity -= int(shares)
                 s.save()
+                
             else:
                 s.delete()
             obj = {'company_name': values.get('name'),
                     'buyer': request.user.id,
                     'transaction_type': 0,
                     'needed_money': final_amount,
+                    'quantity': shares,
                     'price': values.get('price'),
                     'user_account': user_account.id
                     }
 
             updateBuyPaylod(request.POST, request, obj)
             serializer = transactionSerializer(data=request.data)
+            
+            
+            if serializer.is_valid():
+                serializer.save()
             add_message(request, "Shares sold")
             symbols = portfolio.objects.filter(buyer=request.user.id)
+            
         return render(request, "finance/sell.html", {"symbols": symbols})
     else:
         symbols = get_user_portfolio(request)
         return render(request, "finance/sell.html", {"symbols": symbols})
 
+def history(request):
+    stocks =transaction.objects.filter(buyer=request.user.id).order_by('-created_at')
+        
+        
+    return render(request, "finance/history.html", {"stocks":stocks})
 
 class transactionDetailView (generics.RetrieveUpdateDestroyAPIView):
     queryset = transaction.objects.all()
