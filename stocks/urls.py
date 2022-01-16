@@ -20,7 +20,7 @@ from finance import views as id
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/' , admin.site.urls),
     path('api/',include('finance.urls')),
     path('register/',reg.register, name="register"),
     path('quote/', id.quote, name="quote"),
