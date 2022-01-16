@@ -12,7 +12,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
-    
+    {% load static %}
+    <link href="{% static '/style.css' %}" rel="stylesheet" type="text/css">
+
+
 </head>
 
 <body>
@@ -42,6 +45,7 @@
         </div>
     </nav>
 </body>
+<link rel="stylesheet" href="http://127.0.0.1:8000/css/style.css">
 <main class="container p-5">
     {% block messages %}
     {% if messages %}
@@ -57,6 +61,41 @@
 
     {% endblock %}
     {% block main %}{% endblock %}
+
+
+
+
+
+{% if user.is_authenticated %}
+
+<div class="kontener" >
+    <div class="zdjecie" style="background-image: url('{% static '/financial-data.jpg' %}');"></div>
+    <div class="tekst">
+        <h1>Dziękujemy za zalogowanie</h1>
+        <p>Portal stworzony przez studentów UKW w Bydgoszczy, przez który możesz zakochać się w walutach!</p>
+        <div class="button-kont">
+                  <button onClick="window.location.href='/buy/'  ">Kup akcje !</button>
+        </div>
+    </div>
+</div>
+
+{% else %}
+
+
+    
+<div class="kontener" >
+    <div class="zdjecie" style="background-image: url('{% static '/financial-data.jpg' %}');"></div>
+    <div class="tekst">
+        <h1>Zaloguj się do systemu</h1>
+        <p>Portal stworzony przez studentów UKW w Bydgoszczy, przez który możesz zakochać się w giełdzie!</p>
+        <div class="button-kont">
+                  <button onClick="window.location.href='/login/'  ">Zaloguj się!</button>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
 </main>
 
 <footer class="small text-center text-muted">
@@ -65,3 +104,8 @@
 </footer>
 
 </html>
+
+
+<style>
+ 
+</style>
