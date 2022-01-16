@@ -66,35 +66,7 @@
 
 
 
-{% if user.is_authenticated %}
 
-<div class="kontener" >
-    <div class="zdjecie" style="background-image: url('{% static '/financial-data.jpg' %}');"></div>
-    <div class="tekst">
-        <h1>Dziękujemy za zalogowanie</h1>
-        <p>Portal stworzony przez studentów UKW w Bydgoszczy, przez który możesz zakochać się w walutach!</p>
-        <div class="button-kont">
-                  <button onClick="window.location.href='/buy/'  ">Kup akcje !</button>
-        </div>
-    </div>
-</div>
-
-{% else %}
-
-
-    
-<div class="kontener" >
-    <div class="zdjecie" style="background-image: url('{% static '/financial-data.jpg' %}');"></div>
-    <div class="tekst">
-        <h1>Zaloguj się do systemu</h1>
-        <p>Portal stworzony przez studentów UKW w Bydgoszczy, przez który możesz zakochać się w giełdzie!</p>
-        <div class="button-kont">
-                  <button onClick="window.location.href='/login/'  ">Zaloguj się!</button>
-        </div>
-    </div>
-</div>
-
-{% endif %}
 
 </main>
 

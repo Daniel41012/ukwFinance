@@ -6,6 +6,7 @@
 
 {% block main %}
 <form action="/api/sell/" method="post">
+    {% csrf_token %}
     <div class="form-group">
         <select class="form-control" name="symbol">
             <option disabled value="" selected>Select stock to sell</option>

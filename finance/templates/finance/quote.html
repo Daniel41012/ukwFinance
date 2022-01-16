@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block main %}
+
     <form action="/api/quote/" method="post">
+        {% csrf_token %}
         <div class="form-group">
             <input autofocus class="form-control" name="symbol" placeholder="Search" type="text">
         </div>

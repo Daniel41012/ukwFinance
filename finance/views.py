@@ -11,7 +11,7 @@ from .helpers import lookup, updateBuyPaylod, multiply, get_user_account, have_m
 
 
 def index(request):
-    return render(request, "finance/base.html", {})
+    return render(request, "finance/index.html", {})
 
 
 def buy(request):
